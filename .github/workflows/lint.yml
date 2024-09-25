@@ -1,0 +1,33 @@
+name: Lint Check
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # Yarn도 자동으로 설치됨
+        with:
+          node-version: '20' # Node.js 버전
+          cache: 'yarn' # Yarn 캐시 활성화
+
+      - name: Cache Yarn dependencies # 캐시를 이용해서 속도 낮춤
+        uses: actions/cache@v4
+        with:
+          path: ~/.yarn/cache # Yarn 캐시 경로
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }} # 캐시 키
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install # Yarn을 이용해서 의존성 설치
+
+      - name: Run ESLint
+        run: yarn lint # json의 yarn lint를 실행
