@@ -17,6 +17,6 @@
     "^@asset/(.*)$",
     "^[./]"
   ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": false
 }

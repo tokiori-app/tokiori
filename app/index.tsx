@@ -1,28 +1,21 @@
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
+import RubyText from '../components/RubyText';
 
 const index = () => {
   return (
-    <RubyContainer>
-      {/* 히라가나 */}
-      <RubyText>ふりがな</RubyText>
-      {/* 한자 */}
-      <BaseText>漢字</BaseText>
-    </RubyContainer>
+    <Views>
+      <RubyText ruby="ふりがな" base="漢字" />
+      <Text>ふりがな</Text>
+      <RubyText ruby="ふりがな" base="漢字" />
+      <Text>ふりがな</Text>
+    </Views>
   );
 };
 
 export default index;
 
-const RubyContainer = styled.View`
-  align-items: 'center';
-`;
-
-const RubyText = styled.Text`
-  font-size: 10px;
-  position: absolute;
-  top: -12;
-`;
-
-const BaseText = styled.Text`
-  font-size: 20px;
+const Views = styled.View`
+  flex-direction: row;
+  gap: 2.5px;
 `;
