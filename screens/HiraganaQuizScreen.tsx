@@ -1,36 +1,19 @@
+import HIRAGANAS from 'constant/hiragana';
 import styled from 'styled-components/native';
 import hiraganaHandler from '../service/Hiragana';
 
 const HiraganaQuizScreen = () => {
   return (
     <GridContainer>
-      <StyledPressable
-        onPress={() => {
-          hiraganaHandler.playSound('あ');
-        }}
-      >
-        <StyledText>あ</StyledText>
-      </StyledPressable>
-
-      <StyledPressable
-        onPress={() => {
-          hiraganaHandler.playSound('い');
-        }}
-      >
-        <StyledText>い</StyledText>
-      </StyledPressable>
-
-      <StyledPressable>
-        <StyledText>う</StyledText>
-      </StyledPressable>
-
-      <StyledPressable>
-        <StyledText>え</StyledText>
-      </StyledPressable>
-
-      <StyledPressable>
-        <StyledText>お</StyledText>
-      </StyledPressable>
+      {HIRAGANAS.map((hiragana) => (
+        <StyledPressable
+          onPress={() => {
+            hiraganaHandler.playSound(hiragana);
+          }}
+        >
+          <StyledText>{hiragana}</StyledText>
+        </StyledPressable>
+      ))}
     </GridContainer>
   );
 };
