@@ -1,19 +1,20 @@
 import HIRAGANAS from 'constant/hiragana';
+import hiraganaHandler from 'service/Hiragana';
 import styled from 'styled-components/native';
-import hiraganaHandler from '../service/Hiragana';
 
 const HiraganaQuizScreen = () => {
   return (
     <GridContainer>
-      {HIRAGANAS.map((hiragana) => (
-        <StyledPressable
-          onPress={() => {
-            hiraganaHandler.playSound(hiragana);
-          }}
-        >
-          <StyledText>{hiragana}</StyledText>
-        </StyledPressable>
-      ))}
+      {HIRAGANAS.map((hiraganas) =>
+        hiraganas.map((hiragana) => (
+          <StyledPressable
+            key={hiragana}
+            onPress={() => hiraganaHandler.playSound(hiragana)}
+          >
+            <StyledText>{hiragana}</StyledText>
+          </StyledPressable>
+        )),
+      )}
     </GridContainer>
   );
 };
@@ -26,7 +27,7 @@ const GridContainer = styled.View`
   flex-wrap: wrap;
   gap: 5px;
 `;
-const StyledPressable = styled.Pressable`
+const StyledPressable = styled.TouchableOpacity`
   width: 50px;
   height: 50px;
   align-items: center;
