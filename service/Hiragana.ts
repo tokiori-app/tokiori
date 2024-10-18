@@ -1,9 +1,8 @@
+import { Platform } from 'react-native';
 import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
 
-Audio.setAudioModeAsync({
-  playsInSilentModeIOS: true,
-});
+const soundObject = new Audio.Sound();
 
 type DefaultType = string;
 
@@ -20,11 +19,23 @@ class Hiragana {
 
   async playSound(hiragana: DefaultType) {
     try {
-      Speech.speak(hiragana, {
-        language: 'ja-JP',
-        rate: 0.5,
-        pitch: 1,
-      });
+      if (Platform.OS === 'ios') {
+        await Audio.setAudioModeAsync({
+          playsInSilentModeIOS: true,
+        });
+        if (!soundObject._loaded) {
+          await soundObject.loadAsync(require('../assets/soundFile.mp3'));
+        }
+        await soundObject.playAsync();
+      }
+
+      setTimeout(() => {
+        Speech.speak(hiragana, {
+          language: 'ja-JP',
+          rate: 0.5,
+          pitch: 1,
+        });
+      }, 100);
     } catch (e) {
       console.log(e);
     }
