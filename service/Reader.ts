@@ -2,19 +2,17 @@ import { Platform } from 'react-native';
 import { Audio } from 'expo-av';
 import * as Speech from 'expo-speech';
 
-const soundObject = new Audio.Sound();
-
 type DefaultType = string;
 
-class Hiragana {
-  private static instance: Hiragana;
+const soundObject = new Audio.Sound();
+
+class Reader {
+  private static instance: Reader;
   private constructor() {}
 
   static getInstatce() {
-    if (!Hiragana.instance) {
-      Hiragana.instance = new Hiragana();
-    }
-    return Hiragana.instance;
+    if (!Reader.instance) Reader.instance = new Reader();
+    return Reader.instance;
   }
 
   async playSound(hiragana: DefaultType) {
@@ -28,7 +26,6 @@ class Hiragana {
         }
         await soundObject.playAsync();
       }
-
       setTimeout(() => {
         Speech.speak(hiragana, {
           language: 'ja-JP',
@@ -42,5 +39,5 @@ class Hiragana {
   }
 }
 
-const hiraganaHandler = Hiragana.getInstatce();
-export default hiraganaHandler;
+const readerHandler = Reader.getInstatce();
+export default readerHandler;
