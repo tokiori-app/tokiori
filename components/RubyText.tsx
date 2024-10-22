@@ -1,17 +1,19 @@
 import styled from 'styled-components/native';
 
-const RubyText = ({ ruby, base }: RubyTextState) => {
+const RubyText = ({ ruby, base, color }: RubyTextState) => {
   return (
     <RubyContainer>
-      <StyledRubyText>{ruby}</StyledRubyText>
-      <BaseText>{base}</BaseText>
+      <StyledRubyText color={color}>{ruby}</StyledRubyText>
+      <BaseText color={color}>{base}</BaseText>
     </RubyContainer>
   );
 };
 
 export default RubyText;
 
-interface RubyTextState {
+type ColorType = { color?: string };
+
+interface RubyTextState extends ColorType {
   ruby: string;
   base: string;
 }
@@ -19,13 +21,16 @@ interface RubyTextState {
 const RubyContainer = styled.View`
   justify-content: center;
   align-items: center;
+  margin-right: -10px;
 `;
 
-const StyledRubyText = styled.Text`
+const StyledRubyText = styled.Text<ColorType>`
   font-size: 10px;
   margin-top: -12px;
+  color: ${({ color }) => (color ? color : '#000')};
 `;
 
-const BaseText = styled.Text`
+const BaseText = styled.Text<ColorType>`
   font-size: 16px;
+  color: ${({ color }) => (color ? color : '#000')};
 `;

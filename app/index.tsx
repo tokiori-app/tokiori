@@ -1,21 +1,15 @@
-import { Text } from 'react-native';
-import styled from 'styled-components/native';
-import RubyText from '../components/RubyText';
+import { Text, View } from 'react-native';
+import { Link } from 'expo-router';
 
-const index = () => {
-  return (
-    <Views>
-      <RubyText ruby="ふりがな" base="漢字" />
-      <Text>ふりがな</Text>
-      <RubyText ruby="ふりがな" base="漢字" />
-      <Text>ふりがな</Text>
-    </Views>
-  );
-};
+const IndexPage = () => (
+  <View>
+    <Link href="/hiragana">
+      <Text>히라가나 페이지</Text>
+    </Link>
+    <Link href="/word">
+      <Text>단어장 페이지</Text>
+    </Link>
+  </View>
+);
 
-export default index;
-
-const Views = styled.View`
-  flex-direction: row;
-  gap: 2.5px;
-`;
+export default IndexPage;
