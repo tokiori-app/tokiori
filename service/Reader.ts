@@ -29,8 +29,8 @@ class Reader {
       setTimeout(() => {
         Speech.speak(hiragana, {
           language: 'ja-JP',
-          rate: 0.5,
-          pitch: 1,
+          rate: 0.6,
+          pitch: 1.1,
         });
       }, 100);
     } catch (e) {
