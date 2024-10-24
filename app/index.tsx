@@ -12,6 +12,9 @@ const IndexPage = () => (
     <Link href="/sound">
       <Text>사운드 퀴즈 페이지</Text>
     </Link>
+    <Link href="/soundWord">
+      <Text>사운드 문자 퀴즈 페이지</Text>
+    </Link>
     <Link href="/soundWrite">
       <Text>사운드 퀴즈 페이지(텍스트)</Text>
     </Link>
