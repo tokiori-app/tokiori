@@ -39,8 +39,7 @@
           }
         }
       ],
-      "@react-native-firebase/app",
-      "react-native-reanimated/plugin"
+      "@react-native-firebase/app"
     ],
     "owner": "tokiori"
   }
