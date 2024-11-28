@@ -18,7 +18,7 @@ const IndexPage = () => (
     <Link href="/soundWrite">
       <Text>사운드 퀴즈 페이지(텍스트)</Text>
     </Link>
-    <Link href="/notice">
+    <Link href="/setting">
       <Text>공지사항</Text>
     </Link>
   </View>
