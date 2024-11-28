@@ -1,16 +1,11 @@
 import { Stack } from 'expo-router';
+import SettingHeader from '@components/page/setting/SettingHeader';
 
 const SettingLayout = () => {
   return (
     <Stack
       screenOptions={{
-        headerTitleStyle: {
-          fontSize: 20,
-          fontWeight: 'bold',
-        },
-        contentStyle: {
-          backgroundColor: '#fff',
-        },
+        header: (props) => <SettingHeader props={props} />,
       }}
     >
       <Stack.Screen name="setting/index" options={{ title: '설정' }} />
