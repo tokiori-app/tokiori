@@ -39,6 +39,17 @@
           }
         }
       ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Pretendard-Medium.otf",
+            "./assets/fonts/Pretendard-SemiBold.otf",
+            "./assets/fonts/PretendardJP-Medium.otf",
+            "./assets/fonts/PretendardJP-SemiBold.otf"
+          ]
+        }
+      ],
       "@react-native-firebase/app"
     ],
     "owner": "tokiori"
