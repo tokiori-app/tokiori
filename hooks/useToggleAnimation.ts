@@ -7,12 +7,12 @@ import {
 import COLORS from 'constant/color';
 import { useEffect } from 'react';
 
-const BACKGROUNDBASE = '#D9D9D9';
+const BACKGROUND_BASE = '#D9D9D9';
 
 const useToggleAnimation = (active: boolean) => {
   const maxWidth = 36 - 16 - 2;
 
-  const backgroundColor = useSharedValue<string>(BACKGROUNDBASE);
+  const backgroundColor = useSharedValue<string>(BACKGROUND_BASE);
   const leftSpring = useSharedValue<number>(2);
 
   const backgroundStyle = useAnimatedStyle(() => ({
@@ -23,7 +23,7 @@ const useToggleAnimation = (active: boolean) => {
   }));
 
   useEffect(() => {
-    backgroundColor.value = withTiming(active ? COLORS.main : BACKGROUNDBASE, {
+    backgroundColor.value = withTiming(active ? COLORS.main : BACKGROUND_BASE, {
       duration: 300,
     });
     leftSpring.value = withSpring(active ? maxWidth : 2, { duration: 500 });
