@@ -1,3 +1,4 @@
+import COLORS from 'constant/color';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
@@ -20,7 +21,14 @@ const Layout = () => {
     return null;
   }
 
-  return <Stack />;
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: COLORS.white },
+      }}
+    />
+  );
 };
 
 export default Layout;
