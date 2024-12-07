@@ -1,16 +1,21 @@
 import COLORS from 'constant/color';
 import { Stack } from 'expo-router';
-import SettingHeader from '@components/page/setting/SettingHeader';
+import Header from '@components/common/layout/Header';
 
 const SettingLayout = () => {
   return (
     <Stack
       screenOptions={{
-        header: (props) => <SettingHeader props={props} />,
         contentStyle: { backgroundColor: COLORS.white },
       }}
     >
-      <Stack.Screen name="setting/index" options={{ title: '설정' }} />
+      <Stack.Screen
+        name="setting/index"
+        options={{
+          header: (props) => <Header props={props} />,
+          title: '설정',
+        }}
+      />
     </Stack>
   );
 };
