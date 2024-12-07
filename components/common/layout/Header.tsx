@@ -33,33 +33,39 @@ const Header = ({
 }: HeaderProps) => {
   const router = useRouter();
 
+  const { title, headerRight: HeaderRight } = props.options;
+
+  const showCloseButton = isClose && !isHide;
+  const showBackButton = !isClose && !isHide;
+  const showSettingsButton = isSetting;
+  const showCustomHeaderRight = !isSetting && HeaderRight;
+
   return (
     <SafeAreaView>
       <View style={s.container}>
-        {isClose ? (
+        {showCloseButton && (
           <Pressable onPress={isClose} style={s.left}>
             <CloseSVG width={24} />
           </Pressable>
-        ) : (
-          !isHide && (
-            <Pressable onPress={props.navigation.goBack} style={s.left}>
-              <LeftArrow width={24} />
-            </Pressable>
-          )
         )}
-        {children ? (
-          children
-        ) : (
-          <Text style={t.heading1}>{props.options.title}</Text>
+
+        {showBackButton && (
+          <Pressable onPress={props.navigation.goBack} style={s.left}>
+            <LeftArrow width={24} />
+          </Pressable>
         )}
-        {isSetting && (
+
+        {children ?? <Text style={t.heading1}>{title}</Text>}
+
+        {showSettingsButton && (
           <Pressable style={s.right} onPress={() => router.push('/setting')}>
             <SettingSVG />
           </Pressable>
         )}
-        {props.options.headerRight && (
+
+        {showCustomHeaderRight && (
           <View style={s.right}>
-            <props.options.headerRight canGoBack />
+            <HeaderRight canGoBack />
           </View>
         )}
       </View>
