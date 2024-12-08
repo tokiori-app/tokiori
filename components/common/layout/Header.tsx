@@ -1,4 +1,12 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  Pressable,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import CloseSVG from '@assets/icons/close.svg';
 import LeftArrow from '@assets/icons/left-arrow.svg';
 import SettingSVG from '@assets/icons/setting.svg';
@@ -77,6 +85,8 @@ export default Header;
 
 const s = StyleSheet.create({
   container: {
+    /* Android 상단 StatusBar 뚫고 올라가있는 이슈로 인한 currentHeight 추가 */
+    marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
