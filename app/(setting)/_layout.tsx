@@ -11,6 +11,12 @@ const SettingLayout = () => {
       }}
     >
       <Stack.Screen name="setting/index" options={{ title: '설정' }} />
+      <Stack.Screen
+        name="setting/notice"
+        options={{
+          title: '공지사항',
+        }}
+      />
     </Stack>
   );
 };
