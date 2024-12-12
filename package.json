@@ -15,7 +15,6 @@
   "dependencies": {
     "@react-native-firebase/analytics": "^21.2.0",
     "@react-native-firebase/app": "^21.2.0",
-    "@react-native-firebase/firestore": "^21.2.0",
     "expo": "~51.0.28",
     "expo-asset": "~10.0.10",
     "expo-av": "^14.0.7",
