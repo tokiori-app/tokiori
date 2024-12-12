@@ -1,8 +1,9 @@
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 
 const IndexPage = () => (
-  <View>
+  <SafeAreaView>
     <Link href="/hiragana">
       <Text>히라가나 페이지</Text>
     </Link>
@@ -21,7 +22,7 @@ const IndexPage = () => (
     <Link href="/setting">
       <Text>공지사항</Text>
     </Link>
-  </View>
+  </SafeAreaView>
 );
 
 export default IndexPage;
