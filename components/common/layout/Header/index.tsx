@@ -7,10 +7,8 @@ import {
 } from 'react-native';
 import React, { ReactNode } from 'react';
 
-type DefaultType = ReactNode;
-
 interface HeaderProps {
-  children: DefaultType;
+  children: ReactNode;
 }
 
 const Header = ({ children }: HeaderProps) => {
