@@ -1,39 +1,18 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import LeftArrow from '@assets/icons/left-arrow.svg';
-import type { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import Header from '@components/common/layout/Header';
+import PrevBtn from '@components/common/layout/Header/subcomponents/PrevBtn';
+import HeaderTitle from '@components/common/layout/Header/subcomponents/Title';
 
-const SettingHeader = ({ props }: { props: NativeStackHeaderProps }) => {
+const SettingHeader = ({ title }: { title: string }) => {
   return (
-    <SafeAreaView>
-      <View style={s.container}>
-        <Pressable onPress={props.navigation.goBack} style={s.button}>
-          <LeftArrow width={24} />
-        </Pressable>
-        <Text style={s.text}>{props.options.title}</Text>
-      </View>
-    </SafeAreaView>
+    <Header>
+      <Header.left>
+        <PrevBtn />
+      </Header.left>
+      <Header.center>
+        <HeaderTitle label={title} />
+      </Header.center>
+    </Header>
   );
 };
 
 export default SettingHeader;
-
-const s = StyleSheet.create({
-  container: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-  },
-  button: {
-    position: 'absolute',
-    left: 16,
-    top: '50%',
-    transform: [{ translateY: -12 }],
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 600,
-    letterSpacing: -0.5,
-  },
-});

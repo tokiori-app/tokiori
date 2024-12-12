@@ -29,12 +29,10 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    fontWeight: 600,
     fontSize: 16,
     letterSpacing: -0.4,
   },
   subTitle: {
-    fontWeight: 500,
     fontSize: 14,
     letterSpacing: -0.35,
     color: COLORS.gray2,
