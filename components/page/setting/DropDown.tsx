@@ -28,11 +28,12 @@ const DropDown = ({ item, index }: DropDownProps) => {
     outputRange: [1, -1],
   });
 
-  const borderStyle = index !== 0 ? s.container : null;
-
   return (
-    <View style={borderStyle}>
-      <Pressable style={s.titleContainer} onPress={toggleAccordion}>
+    <View>
+      <Pressable
+        style={[s.titleContainer, isOpen ? null : s.titleBorder]}
+        onPress={toggleAccordion}
+      >
         <View>
           <Text style={t.title3}>공지사항</Text>
           <Text style={[t.subtitle, s.createText]}>2024.10.11</Text>
@@ -53,18 +54,17 @@ const DropDown = ({ item, index }: DropDownProps) => {
 export default DropDown;
 
 const s = StyleSheet.create({
-  container: {
-    borderTopWidth: 2,
-    borderTopColor: '#CCCCCC',
-    marginTop: 20,
-  },
   createText: {
     marginTop: 5,
     color: '#6666',
   },
+  titleBorder: {
+    borderColor: '#ECECEC',
+    borderBottomWidth: 2,
+  },
   titleContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    padding: 16,
+    paddingBottom: 14,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
