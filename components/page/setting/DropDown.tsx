@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import DownArrowSVG from '@assets/icons/down-arrow.svg';
-import COLORS from 'constant/color';
+import COLORS from '@constant/color';
+import t from '@constant/typography';
 import { useRef, useState } from 'react';
-import t from 'styles/typography';
 
 interface DropDownProps {
   item: any; // firebase 연동후 수정

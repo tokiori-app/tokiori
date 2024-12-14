@@ -4,7 +4,7 @@ import {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import COLORS from 'constant/color';
+import COLORS from '@constant/color';
 import { useEffect } from 'react';
 
 const BACKGROUND_BASE = '#D9D9D9';
