@@ -1,4 +1,4 @@
-import NoticeScreen from 'screens/(setting)/NoticeScreen';
+import NoticeScreen from '@screens/(setting)/NoticeScreen';
 
 const NoticePage = () => <NoticeScreen />;
 

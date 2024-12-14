@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
-import useToggleAnimation from 'hooks/useToggleAnimation';
+import useToggleAnimation from '@hooks/useToggleAnimation';
 
 interface ToggleBtnProps {
   active: boolean;

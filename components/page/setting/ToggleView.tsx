@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import COLORS from 'constant/color';
+import COLORS from '@constant/color';
 import ToggleBtn from '@components/common/ToggleBtn';
 
 interface ToggleViewProps {

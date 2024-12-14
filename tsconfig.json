@@ -5,7 +5,13 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@screens/*": ["screens/*"],
+      "@styles/*": ["styles/*"],
+      "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"],
+      "@constant/*": ["constant/*"]
     }
   }
 }

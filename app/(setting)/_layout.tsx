@@ -1,4 +1,4 @@
-import COLORS from 'constant/color';
+import COLORS from '@constant/color';
 import { Stack } from 'expo-router';
 
 const SettingLayout = () => {

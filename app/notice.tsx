@@ -1,4 +1,4 @@
-import NoticeScreen from 'screens/NoticeScreen';
+import NoticeScreen from '@screens/NoticeScreen';
 
 const NoticePage = () => {
   return <NoticeScreen />;

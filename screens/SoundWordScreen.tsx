@@ -1,5 +1,5 @@
 import { Text, Dimensions, Alert, Button, View } from 'react-native';
-import HIRAGANAS from 'constant/hiragana';
+import HIRAGANAS from '@constant/hiragana';
 import { useCallback, useEffect, useState } from 'react';
 import readerHandler from 'service/Reader';
 import styled from 'styled-components/native';

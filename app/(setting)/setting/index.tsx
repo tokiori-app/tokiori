@@ -1,4 +1,4 @@
-import SettingScreen from 'screens/(setting)/SettingScreen';
+import SettingScreen from '@screens/(setting)/SettingScreen';
 
 const SettingPage = () => <SettingScreen />;
 

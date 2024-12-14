@@ -1,4 +1,4 @@
-import SoundWordScreen from 'screens/SoundWordScreen';
+import SoundWordScreen from '@screens/SoundWordScreen';
 
 const SoundWordPage = () => {
   return <SoundWordScreen />;
