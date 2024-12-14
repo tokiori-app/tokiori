@@ -1,4 +1,4 @@
-import WordScreen from 'screens/WordScreen';
+import WordScreen from '@screens/WordScreen';
 
 const WordPage = () => <WordScreen />;
 

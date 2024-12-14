@@ -1,4 +1,4 @@
-import SoundWriteScreen from 'screens/SoundWriteScreen';
+import SoundWriteScreen from '@screens/SoundWriteScreen';
 
 const SoundWritePage = () => {
   return <SoundWriteScreen />;

@@ -1,11 +1,11 @@
 import {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withSpring, 
   withTiming,
 } from 'react-native-reanimated';
-import COLORS from 'constant/color';
 import { useEffect } from 'react';
+import COLORS from '@constant/color';  
 
 const BACKGROUND_BASE = '#D9D9D9';
 
@@ -34,5 +34,5 @@ const useToggleAnimation = (active: boolean) => {
     leftStyle,
   };
 };
-
-export default useToggleAnimation;
+  
+export default useToggleAnimation;  

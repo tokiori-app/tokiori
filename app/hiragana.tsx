@@ -1,4 +1,4 @@
-import HiraganaQuizScreen from '../screens/HiraganaQuizScreen';
+import HiraganaQuizScreen from '@screens/HiraganaQuizScreen';
 
 const HiraganaQuizPage = () => <HiraganaQuizScreen />;
 
