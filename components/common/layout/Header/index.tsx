@@ -26,7 +26,8 @@ const Header: React.FC<HeaderProps> & {
 Header.Left = ({ children }: HeaderProps) => (
   <View style={s.left}>{children}</View>
 );
-Header.Center = ({ children }: HeaderProps) => <View>{children}</View>;
+Header.Center = ({ children }: HeaderProps) => children;
+
 Header.Right = ({ children }: HeaderProps) => (
   <View style={s.right}>{children}</View>
 );
