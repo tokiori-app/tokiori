@@ -1,4 +1,5 @@
 import { View, StyleSheet } from 'react-native';
+import ROUTES from '@constant/routes';
 import React, { useState } from 'react';
 import LinkView from '@components/page/setting/LinkView';
 import SettingHeader from '@components/page/setting/SettingHeader';
@@ -27,7 +28,7 @@ const SettingScreen = () => {
           />
         </View>
         <View style={s.linksSection}>
-          <LinkView label="공지사항" link="/setting/notice" />
+          <LinkView label="공지사항" link={ROUTES.NOTICE} />
           <LinkView label="리뷰 남기기" onClick={() => {}} />
         </View>
       </View>
