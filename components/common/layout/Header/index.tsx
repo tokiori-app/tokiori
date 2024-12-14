@@ -11,7 +11,11 @@ interface HeaderProps {
   children: ReactNode;
 }
 
-const Header = ({ children }: HeaderProps) => {
+const Header: React.FC<HeaderProps> & {
+  Left: React.FC<HeaderProps>;
+  Center: React.FC<HeaderProps>;
+  Right: React.FC<HeaderProps>;
+} = ({ children }) => {
   return (
     <SafeAreaView>
       <View style={s.container}>{children}</View>
@@ -19,13 +23,17 @@ const Header = ({ children }: HeaderProps) => {
   );
 };
 
-Header.left = ({ children }: HeaderProps) => (
+Header.Left = ({ children }: HeaderProps) => (
   <View style={s.left}>{children}</View>
 );
-Header.center = ({ children }: HeaderProps) => children;
-Header.right = ({ children }: HeaderProps) => (
+Header.Center = ({ children }: HeaderProps) => <View>{children}</View>;
+Header.Right = ({ children }: HeaderProps) => (
   <View style={s.right}>{children}</View>
 );
+
+Header.Right.displayName = 'Header.Right';
+Header.Left.displayName = 'Header.Left';
+Header.Center.displayName = 'Header.Center';
 
 export default Header;
 
