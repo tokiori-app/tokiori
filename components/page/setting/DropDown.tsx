@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import DownArrowSVG from '@assets/icons/down-arrow.svg';
 import COLORS from '@constant/color';
-import t from '@styles/typography';
+import t from '@constant/typography';
 import { useRef, useState } from 'react';
 
 interface DropDownProps {

@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import t from '@styles/typography';
+import t from '@constant/typography';
 
 /**
  * 기본 타이틀 컴포넌트
