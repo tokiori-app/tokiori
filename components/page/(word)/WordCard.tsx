@@ -4,14 +4,21 @@ import t from '@constant/typography';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
-const WordCard = () => {
+interface WordCardProps {
+  hiragana?: string;
+  word: string;
+  korean: string;
+}
+
+const WordCard = ({ hiragana, word, korean }: WordCardProps) => {
   return (
     <TouchableOpacity style={s.container}>
       <EyesBtn isActive={false} />
       <BookMarkBtn isBookMark={false} />
       <View style={s.textBox}>
-        <Text style={[t.jp24, s.jpText]}>新しい</Text>
-        <Text style={[t.title3, s.jpSmall]}>새롭다</Text>
+        {hiragana && <Text style={[t.jp14, s.jpHira]}>（{hiragana}）</Text>}
+        <Text style={[t.jp24, s.jpText]}>{word}</Text>
+        <Text style={[t.title3, s.jpSmall]}>{korean}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -32,6 +39,9 @@ const s = StyleSheet.create({
   textBox: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  jpHira: {
+    color: COLORS.gray2,
   },
   jpText: {
     color: '#0090B2',
