@@ -1,23 +1,19 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
-import React from 'react';
+import BookMarkBtn from '@components/common/BookMarkBtn';
+import EyesBtn from '@components/common/EyesBtn';
 
 const WordCard = () => {
   return (
-    <View style={s.container}>
-      <Pressable style={s.leftBtn}>
-        <Text>버튼1</Text>
-      </Pressable>
-      <Pressable style={s.rightBtn}>
-        <Text>버튼2</Text>
-      </Pressable>
-
+    <TouchableOpacity style={s.container}>
+      <EyesBtn isActive={false} />
+      <BookMarkBtn isBookMark={false} />
       <View style={s.textBox}>
         <Text style={[t.jp24, s.jpText]}>新しい</Text>
         <Text style={[t.title3, s.jpSmall]}>새롭다</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -32,16 +28,6 @@ const s = StyleSheet.create({
     alignItems: 'center',
     height: 120,
     backgroundColor: COLORS.secondary,
-  },
-  leftBtn: {
-    position: 'absolute',
-    left: 16,
-    top: 16,
-  },
-  rightBtn: {
-    position: 'absolute',
-    right: 16,
-    top: 16,
   },
   textBox: {
     alignItems: 'center',
