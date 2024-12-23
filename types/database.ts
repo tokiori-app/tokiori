@@ -55,6 +55,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      words: {
+        Row: {
+          created_at: string;
+          hiragana: string | null;
+          id: number;
+          korean: string | null;
+          word: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          hiragana?: string | null;
+          id?: number;
+          korean?: string | null;
+          word?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          hiragana?: string | null;
+          id?: number;
+          korean?: string | null;
+          word?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
