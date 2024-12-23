@@ -1,22 +1,16 @@
 import { Pressable, StyleSheet } from 'react-native';
 import EyesDisabled from '@assets/icons/eyes-disabled.svg';
 import Eyes from '@assets/icons/eyes.svg';
-import { useState } from 'react';
 
 interface EyesBtnProps {
   isActive: boolean;
+  onClick: () => void;
 }
 
-const EyesBtn = ({ isActive }: EyesBtnProps) => {
-  const [active, setActive] = useState(isActive);
-
-  const clickHandler = () => {
-    setActive(!active);
-  };
-
+const EyesBtn = ({ isActive, onClick }: EyesBtnProps) => {
   return (
-    <Pressable onPress={clickHandler} style={s.box}>
-      {active ? <EyesDisabled /> : <Eyes />}
+    <Pressable onPress={onClick} style={s.box}>
+      {isActive ? <EyesDisabled /> : <Eyes />}
     </Pressable>
   );
 };

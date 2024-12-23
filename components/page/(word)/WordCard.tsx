@@ -1,24 +1,27 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
+import { Database } from '@types/database';
+import { useState } from 'react';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
-interface WordCardProps {
-  hiragana?: string;
-  word: string;
-  korean: string;
-}
+const WordCard = ({
+  hiragana,
+  word,
+  korean,
+}: Database['public']['Tables']['words']['Row']) => {
+  const [eyeActive, setEyeActive] = useState(false);
+  const eyeClickHandler = () => setEyeActive(!eyeActive);
 
-const WordCard = ({ hiragana, word, korean }: WordCardProps) => {
   return (
     <TouchableOpacity style={s.container}>
-      <EyesBtn isActive={false} />
+      <EyesBtn isActive={eyeActive} onClick={eyeClickHandler} />
       <BookMarkBtn isBookMark={false} />
       <View style={s.textBox}>
         {hiragana && <Text style={[t.jp14, s.jpHira]}>（{hiragana}）</Text>}
         <Text style={[t.jp24, s.jpText]}>{word}</Text>
-        <Text style={[t.title3, s.jpSmall]}>{korean}</Text>
+        {!eyeActive && <Text style={[t.title3, s.jpSmall]}>{korean}</Text>}
       </View>
     </TouchableOpacity>
   );
