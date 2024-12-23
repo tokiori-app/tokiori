@@ -58,24 +58,24 @@ export type Database = {
       words: {
         Row: {
           created_at: string;
-          hiragana: string | null;
+          hiragana: string;
           id: number;
-          korean: string | null;
-          word: string | null;
+          korean: string;
+          word: string;
         };
         Insert: {
           created_at?: string;
-          hiragana?: string | null;
+          hiragana: string;
           id?: number;
-          korean?: string | null;
-          word?: string | null;
+          korean: string;
+          word: string;
         };
         Update: {
           created_at?: string;
-          hiragana?: string | null;
+          hiragana?: string;
           id?: number;
-          korean?: string | null;
-          word?: string | null;
+          korean?: string;
+          word?: string;
         };
         Relationships: [];
       };
