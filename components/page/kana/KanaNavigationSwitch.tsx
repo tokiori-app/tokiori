@@ -47,7 +47,7 @@ export default KanaNavigationSwitch;
 const s = StyleSheet.create({
   tabContainer: {
     width: 'auto',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.secondary,
