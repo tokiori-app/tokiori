@@ -1,5 +1,5 @@
 import { FlatList, RefreshControl, StyleSheet } from 'react-native';
-import { Database } from '@types/database';
+import { Database } from '$types/database';
 import { useCallback, useEffect, useState } from 'react';
 import getWords from 'service/getWords';
 import WordCard from './WordCard';
@@ -14,6 +14,7 @@ const WordList = () => {
     const wordsData = await getWords();
     setWords(wordsData);
   };
+
   useEffect(() => {
     loadWord();
   }, []);

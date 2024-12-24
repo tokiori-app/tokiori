@@ -1,6 +1,7 @@
 import COLORS from 'constant/color';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
+import { WordProvider } from 'provider/WordProvider';
 import { useEffect } from 'react';
 
 const Layout = () => {
@@ -23,12 +24,14 @@ const Layout = () => {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: COLORS.white },
-      }}
-    />
+    <WordProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: COLORS.white },
+        }}
+      />
+    </WordProvider>
   );
 };
 
