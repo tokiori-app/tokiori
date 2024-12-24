@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
 import { Database } from '@types/database';
-import { useState } from 'react';
+import { getStorage } from 'lib/storage';
+import { useEffect, useState } from 'react';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
@@ -10,9 +11,20 @@ const WordCard = ({
   hiragana,
   word,
   korean,
-}: Database['public']['Tables']['words']['Row']) => {
+}: Pick<
+  Database['public']['Tables']['words']['Row'],
+  'hiragana' | 'word' | 'korean'
+>) => {
   const [eyeActive, setEyeActive] = useState(false);
   const eyeClickHandler = () => setEyeActive(!eyeActive);
+
+  useEffect(() => {
+    const loadStorage = async () => {
+      const get = await getStorage('word');
+      setEyeActive(get);
+    };
+    loadStorage();
+  }, []);
 
   return (
     <TouchableOpacity style={s.container}>
