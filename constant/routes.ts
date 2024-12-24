@@ -5,7 +5,11 @@ const ROUTES = {
   },
   SETTING: '/setting',
   NOTICE: '/setting/notice',
-  /* 공지사항 페이지도 따로 추가해주세요! */
+  WORD: {
+    INDEX: '/word',
+    BOOKMARK: '/word/bookmark',
+    GAME: '/word/game',
+  },
 } as const;
 
 export default ROUTES;
