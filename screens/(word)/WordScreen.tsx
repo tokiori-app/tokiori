@@ -2,10 +2,8 @@ import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { SceneMap, TabView } from 'react-native-tab-view';
 import React, { lazy, Suspense, useState } from 'react';
 import Loading from '@components/common/Loading';
-import Header from '@components/common/layout/Header';
-import PrevBtn from '@components/common/layout/Header/subcomponents/PrevBtn';
-import SettingBtn from '@components/common/layout/Header/subcomponents/SettingBtn';
 import BookMarkTabContent from '@components/page/(word)/TabContents/BookMarkTabContent';
+import WordHeader from '@components/page/(word)/WordHeader';
 import KanaMenuTabBar from '@components/page/kana/KanaMenuTabBar';
 import MinigameTabContent from '@components/page/kana/TabContents/MinigameTabContent';
 
@@ -31,14 +29,7 @@ const WordScreen = () => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <View style={s.container}>
-      <Header>
-        <Header.Left>
-          <PrevBtn />
-        </Header.Left>
-        <Header.Right>
-          <SettingBtn />
-        </Header.Right>
-      </Header>
+      <WordHeader />
       <Suspense fallback={<Loading />}>
         <TabView
           navigationState={{ index: tabIndex, routes }}
