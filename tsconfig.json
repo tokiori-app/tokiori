@@ -9,7 +9,7 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@screens/*": ["screens/*"],
-      "@types/*": ["types/*"],
+      "$types/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@constant/*": ["constant/*"]
     }
