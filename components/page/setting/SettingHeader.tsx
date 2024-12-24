@@ -5,12 +5,12 @@ import HeaderTitle from '@components/common/layout/Header/subcomponents/Title';
 const SettingHeader = ({ title }: { title: string }) => {
   return (
     <Header>
-      <Header.left>
+      <Header.Left>
         <PrevBtn />
-      </Header.left>
-      <Header.center>
+      </Header.Left>
+      <Header.Center>
         <HeaderTitle label={title} />
-      </Header.center>
+      </Header.Center>
     </Header>
   );
 };
