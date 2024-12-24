@@ -1,39 +1,34 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Database } from '$types/database';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
-import { Database } from '@types/database';
-import { getStorage } from 'lib/storage';
+import { useWord } from 'provider/WordProvider';
 import { useEffect, useState } from 'react';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
-const WordCard = ({
-  hiragana,
-  word,
-  korean,
-}: Pick<
+type WordCardProps = Pick<
   Database['public']['Tables']['words']['Row'],
   'hiragana' | 'word' | 'korean'
->) => {
-  const [eyeActive, setEyeActive] = useState(false);
-  const eyeClickHandler = () => setEyeActive(!eyeActive);
+>;
 
+const WordCard = ({ hiragana, word, korean }: WordCardProps) => {
+  const { wordStorage } = useWord();
+  const [activeWord, setActiveWord] = useState(wordStorage);
   useEffect(() => {
-    const loadStorage = async () => {
-      const get = await getStorage('word');
-      setEyeActive(get);
-    };
-    loadStorage();
-  }, []);
-
+    setActiveWord(wordStorage);
+  }, [wordStorage]);
   return (
     <TouchableOpacity style={s.container}>
-      <EyesBtn isActive={eyeActive} onClick={eyeClickHandler} />
+      <EyesBtn
+        isActive={activeWord}
+        onClick={() => setActiveWord(!activeWord)}
+      />
       <BookMarkBtn isBookMark={false} />
       <View style={s.textBox}>
-        {hiragana && <Text style={[t.jp14, s.jpHira]}>（{hiragana}）</Text>}
+        {hiragana && <Text style={[t.jp14, s.jpHira]}>({hiragana})</Text>}
         <Text style={[t.jp24, s.jpText]}>{word}</Text>
-        {!eyeActive && <Text style={[t.title3, s.jpSmall]}>{korean}</Text>}
+        {!activeWord && <Text style={[t.title3, s.jpSmall]}>{korean}</Text>}
       </View>
     </TouchableOpacity>
   );
