@@ -1,7 +1,7 @@
+import { WordProvider } from '@provider/WordProvider';
 import COLORS from 'constant/color';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { WordProvider } from 'provider/WordProvider';
 import { useEffect } from 'react';
 
 const Layout = () => {

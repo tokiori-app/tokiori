@@ -1,7 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import ROUTES from '@constant/routes';
 import { useWord } from 'provider/WordProvider';
-import React from 'react';
 import LinkView from '@components/page/setting/LinkView';
 import SettingHeader from '@components/page/setting/SettingHeader';
 import ToggleView from '@components/page/setting/ToggleView';
