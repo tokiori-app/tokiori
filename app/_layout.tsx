@@ -1,3 +1,4 @@
+import { BookProvider } from '@provider/BookProvider';
 import { WordProvider } from '@provider/WordProvider';
 import COLORS from 'constant/color';
 import { useFonts } from 'expo-font';
@@ -24,14 +25,16 @@ const Layout = () => {
   }
 
   return (
-    <WordProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: COLORS.white },
-        }}
-      />
-    </WordProvider>
+    <BookProvider>
+      <WordProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: COLORS.white },
+          }}
+        />
+      </WordProvider>
+    </BookProvider>
   );
 };
 
