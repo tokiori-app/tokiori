@@ -1,22 +1,16 @@
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { SceneMap, TabView } from 'react-native-tab-view';
+import { useBook } from '@provider/BookProvider';
 import React, { lazy, Suspense, useState } from 'react';
 import Loading from '@components/common/Loading';
 import BookMarkTabContent from '@components/page/(word)/TabContents/BookMarkTabContent';
+import MinigameTabContent from '@components/page/(word)/TabContents/MinigameTabContent';
 import WordHeader from '@components/page/(word)/WordHeader';
 import KanaMenuTabBar from '@components/page/kana/KanaMenuTabBar';
-import MinigameTabContent from '@components/page/kana/TabContents/MinigameTabContent';
 
 const WordListTabContent = lazy(
   () => import('@components/page/(word)/TabContents/WordListTabContent'),
 );
-
-/* routes 요거도 나중에 따로 상수처리하거나 할듯 */
-const routes = [
-  { key: 'word', title: '단어장' },
-  { key: 'bookmark', title: '북마크' },
-  { key: 'miniGame', title: '미니게임' },
-];
 
 const renderScene = SceneMap({
   word: WordListTabContent,
@@ -25,6 +19,14 @@ const renderScene = SceneMap({
 });
 
 const WordScreen = () => {
+  const { books } = useBook();
+
+  const routes = [
+    { key: 'word', title: '단어장' },
+    { key: 'bookmark', title: `북마크(${books.length})` },
+    { key: 'miniGame', title: '미니게임' },
+  ];
+
   const layout = useWindowDimensions();
   const [tabIndex, setTabIndex] = useState(0);
   return (

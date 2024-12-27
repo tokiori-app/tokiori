@@ -1,22 +1,16 @@
 import { Pressable, StyleSheet } from 'react-native';
 import BookMark from '@assets/icons/bookmark.svg';
 import COLORS from '@constant/color';
-import { useState } from 'react';
 
 interface BookMarkBtnProps {
   isBookMark: boolean;
+  onClick: () => void;
 }
 
-const BookMarkBtn = ({ isBookMark }: BookMarkBtnProps) => {
-  const [active, setActive] = useState(isBookMark);
-
-  const clickHandler = () => {
-    setActive(!active);
-  };
-
+const BookMarkBtn = ({ isBookMark, onClick }: BookMarkBtnProps) => {
   return (
-    <Pressable onPress={clickHandler} style={s.rightBtn}>
-      <BookMark color={active ? '#f5888d8c' : COLORS.secondary} />
+    <Pressable onPress={onClick} style={s.rightBtn}>
+      <BookMark color={isBookMark ? '#f5888d8c' : COLORS.secondary} />
     </Pressable>
   );
 };
