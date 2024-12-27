@@ -1,9 +1,13 @@
+import { Text } from 'react-native';
 import { BookProvider } from '@provider/BookProvider';
 import { WordProvider } from '@provider/WordProvider';
 import COLORS from 'constant/color';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
+
+(Text as any).defaultProps = (Text as any).defaultProps || {};
+(Text as any).defaultProps.allowFontScaling = false;
 
 const Layout = () => {
   const [loaded] = useFonts({
