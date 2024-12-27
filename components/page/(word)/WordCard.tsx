@@ -1,19 +1,22 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Database } from '$types/database';
+import { WordType } from '$types/word';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
+import { useBook } from 'provider/BookProvider';
 import { useWord } from 'provider/WordProvider';
 import { useEffect, useState } from 'react';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
-type WordCardProps = Pick<
-  Database['public']['Tables']['words']['Row'],
-  'hiragana' | 'word' | 'korean'
->;
+interface WordCardProps {
+  item: WordType;
+}
 
-const WordCard = ({ hiragana, word, korean }: WordCardProps) => {
+const WordCard = ({ item }: WordCardProps) => {
+  const { hiragana, word, korean, id } = item;
   const { wordStorage } = useWord();
+  const { books, changeBookHandler } = useBook();
+  const isBookMarked = books.some((el) => el.id === id);
   const [activeWord, setActiveWord] = useState(wordStorage);
   useEffect(() => {
     setActiveWord(wordStorage);
@@ -24,7 +27,10 @@ const WordCard = ({ hiragana, word, korean }: WordCardProps) => {
         isActive={activeWord}
         onClick={() => setActiveWord(!activeWord)}
       />
-      <BookMarkBtn isBookMark={false} />
+      <BookMarkBtn
+        isBookMark={isBookMarked}
+        onClick={() => changeBookHandler(item)}
+      />
       <View style={s.textBox}>
         {hiragana && <Text style={[t.jp14, s.jpHira]}>({hiragana})</Text>}
         <Text style={[t.jp24, s.jpText]}>{word}</Text>

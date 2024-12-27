@@ -56,13 +56,7 @@ const WordListTabContent = () => {
     <View style={s.container}>
       <FlatList
         data={words}
-        renderItem={({ item }) => (
-          <WordCard
-            word={item.word}
-            korean={item.korean}
-            hiragana={item.hiragana}
-          />
-        )}
+        renderItem={({ item }) => <WordCard item={item} />}
         keyExtractor={(item) => String(item.id)}
         contentContainerStyle={s.flatContant}
         refreshControl={
