@@ -4,9 +4,9 @@ import { useBook } from '@provider/BookProvider';
 import React, { lazy, Suspense, useState } from 'react';
 import Loading from '@components/common/Loading';
 import BookMarkTabContent from '@components/page/(word)/TabContents/BookMarkTabContent';
+import MinigameTabContent from '@components/page/(word)/TabContents/MinigameTabContent';
 import WordHeader from '@components/page/(word)/WordHeader';
 import KanaMenuTabBar from '@components/page/kana/KanaMenuTabBar';
-import MinigameTabContent from '@components/page/kana/TabContents/MinigameTabContent';
 
 const WordListTabContent = lazy(
   () => import('@components/page/(word)/TabContents/WordListTabContent'),
