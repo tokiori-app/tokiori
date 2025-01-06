@@ -7,8 +7,11 @@ const ROUTES = {
   NOTICE: '/setting/notice',
   WORD: {
     INDEX: '/word',
-    BOOKMARK: '/word/bookmark',
-    GAME: '/word/game',
+    MINIGAME: {
+      WORD: '/word/game/word',
+      SOUND: '/word/game/sound',
+      WRONG: '/word/wrong',
+    },
   },
 } as const;
 

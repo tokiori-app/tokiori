@@ -5,12 +5,13 @@ import { Link } from 'expo-router';
 import { ReactNode } from 'react';
 
 interface MiniCardProps {
+  href: string;
   children: ReactNode;
 }
 
-const MiniCard = ({ children }: MiniCardProps) => {
+const MiniCard = ({ href, children }: MiniCardProps) => {
   return (
-    <Link href="" asChild>
+    <Link href={href} asChild>
       <TouchableOpacity style={s.container}>{children}</TouchableOpacity>
     </Link>
   );
