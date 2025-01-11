@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tokiori",
-    "slug": "tokiori",
+    "name": "토키오리",
+    "slug": "토키오리",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFDCDF"
     },
     "scheme": "your-app-scheme",
     "web": {
