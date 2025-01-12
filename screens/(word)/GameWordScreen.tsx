@@ -9,47 +9,47 @@ import CloseSVG from '@assets/icons/close.svg';
 import SoundSVG from '@assets/icons/sound.svg';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
+import useRandomWord from '@hooks/page/word/useRandomWord';
 import { useRouter } from 'expo-router';
-import { supabase } from 'lib/supabase';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import readerHandler from 'service/Reader';
 import Loading from '@components/common/Loading';
 import Header from '@components/common/layout/Header';
 
 const GameWordScreen = () => {
   const router = useRouter();
-  const [answer, setAnswer] = useState<string | null>(null);
-  const [sounds, setSounds] = useState<string[]>([]);
+  const { answer, sounds } = useRandomWord();
+  const [clickAnswer, setClickAnswer] = useState<string>('');
+  const [feedbackType, setFeedbackType] = useState<
+    'empty' | 'success' | 'fail' | undefined
+  >();
 
-  useEffect(() => {
-    const randomWord = async () => {
-      const { data } = await supabase.rpc('get_random_words');
-      if (data) {
-        const shuffledData = [...data];
+  const wordClickHandler = (word: string) => {
+    readerHandler.playSound(word);
+    setClickAnswer(word);
+  };
 
-        // 가져온 데이터를 셔플 (Fisher-Yates 알고리즘)
-        for (let i = shuffledData.length - 1; i > 0; i--) {
-          // 배열의 끝부터 시작
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffledData[i], shuffledData[j]] = [
-            shuffledData[j],
-            shuffledData[i],
-          ]; // 배열을 무작위로 셔플
-        }
+  const quitMinigameHandler = () => {
+    router.back();
+  };
 
-        const randomIndex = Math.floor(Math.random() * shuffledData.length);
-        setAnswer(shuffledData[randomIndex]);
-        setSounds(shuffledData);
-      }
-    };
-    randomWord();
-  }, []);
+  const confirmHandler = () => {
+    if (clickAnswer === '') {
+      return setFeedbackType('empty');
+    }
+    if (clickAnswer === answer) {
+      return setFeedbackType('success');
+    }
+    if (clickAnswer !== answer) {
+      return setFeedbackType('fail');
+    }
+  };
 
   return (
     <View style={[s.inset]}>
       <Header>
         <Header.Left>
-          <Pressable onPress={() => router.back()}>
+          <Pressable onPress={quitMinigameHandler}>
             <CloseSVG />
           </Pressable>
         </Header.Left>
@@ -66,8 +66,11 @@ const GameWordScreen = () => {
               {sounds.map((sound) => (
                 <TouchableOpacity
                   key={sound}
-                  style={s.soundButton}
-                  onPress={() => readerHandler.playSound(sound)}
+                  style={[
+                    s.soundButton,
+                    clickAnswer === sound && s.activeSoundButton,
+                  ]}
+                  onPress={() => wordClickHandler(sound)}
                 >
                   <SoundSVG />
                 </TouchableOpacity>
@@ -75,9 +78,24 @@ const GameWordScreen = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={s.confirmButton} onPress={() => {}}>
-            <Text style={s.confirmText}>확인</Text>
-          </TouchableOpacity>
+          <View style={s.confirmBox}>
+            <FeedBackBox feedbackType={feedbackType} />
+            <TouchableOpacity
+              style={[
+                s.confirmButton,
+                feedbackType !== 'empty' ? s.confirmNext : s.confirmBase,
+              ]}
+              onPress={confirmHandler}
+            >
+              <Text
+                style={
+                  feedbackType !== 'empty' ? s.confirmNextText : s.confirmText
+                }
+              >
+                {feedbackType !== 'empty' ? '다음' : '확인'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Suspense>
       </View>
     </View>
@@ -85,6 +103,34 @@ const GameWordScreen = () => {
 };
 
 export default GameWordScreen;
+
+interface FeedBackBoxProps {
+  feedbackType?: 'empty' | 'success' | 'fail';
+}
+
+const FeedBackBox = ({ feedbackType }: FeedBackBoxProps) => {
+  if (feedbackType === 'empty' || feedbackType === 'fail') {
+    return (
+      <View style={[s.feedbackContainer, s.feebackFail]}>
+        <Text style={s.feebackFailText}>
+          {feedbackType === 'empty'
+            ? '아무것도 클릭하지 않았습니다'
+            : '앗 아쉽지만 오답입니다!'}
+        </Text>
+      </View>
+    );
+  }
+
+  if (feedbackType === 'success') {
+    return (
+      <View style={[s.feedbackContainer, s.feedbackSucess]}>
+        <Text style={s.feedbackSucessText}>잘했어요! 정답입니다.</Text>
+      </View>
+    );
+  }
+
+  return null;
+};
 
 const s = StyleSheet.create({
   inset: {
@@ -115,15 +161,51 @@ const s = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
   },
+  activeSoundButton: {
+    borderWidth: 1,
+    borderColor: COLORS.main,
+  },
+  confirmBox: {
+    gap: 20,
+  },
   confirmButton: {
     marginBottom: 56,
     height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.gray3,
     borderRadius: 10,
+  },
+  confirmBase: {
+    backgroundColor: COLORS.gray3,
+  },
+  confirmNext: {
+    backgroundColor: COLORS.main,
   },
   confirmText: {
     color: COLORS.gray2,
+  },
+  confirmNextText: {
+    color: COLORS.black,
+  },
+  feedbackContainer: {
+    borderWidth: 1,
+    borderRadius: 4,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  feebackFail: {
+    borderColor: COLORS.incorrect,
+    backgroundColor: 'rgba(231,76,60,0.2)',
+  },
+  feedbackSucess: {
+    borderColor: '#2ECC71',
+    backgroundColor: '#DEFAEA',
+  },
+  feebackFailText: {
+    color: COLORS.incorrect,
+  },
+  feedbackSucessText: {
+    color: '#1B7A43',
   },
 });
