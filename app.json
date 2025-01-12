@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "토키오리",
-    "slug": "토키오리",
+    "slug": "tokiori",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -52,6 +52,11 @@
       ],
       "@react-native-firebase/app"
     ],
-    "owner": "tokiori"
+    "owner": "tokiori",
+    "extra": {
+      "eas": {
+        "projectId": "97fe13fc-4a3c-4965-8746-15083b50ad6c"
+      }
+    }
   }
 }
