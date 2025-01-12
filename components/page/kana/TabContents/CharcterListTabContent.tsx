@@ -1,20 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { usePathname } from 'expo-router';
+import KanaList from '../KanaList';
 
-const CharcterListTabContent = () => (
-  <View style={styles.screen}>
-    <Text style={styles.text}>문자 리스트 화면</Text>
-  </View>
-);
+const CharcterListTabContent = () => {
+  const pathname = usePathname();
+  const isHiragana = pathname.includes('hiragana');
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-  },
-});
+  return <KanaList type={isHiragana ? 'hiragana' : 'katakana'} />;
+};
 
 export default CharcterListTabContent;

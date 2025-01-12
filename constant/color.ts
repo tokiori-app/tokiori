@@ -9,6 +9,7 @@ const COLORS = {
   gray1: '#333333',
   gray2: '#666666',
   gray3: '#ECECEC',
+  indexBackground: '#009CB2',
 };
 
 export default COLORS;

@@ -28,6 +28,11 @@ const KanaMenuTabBar = (
         shadowOffset: { height: 0, width: 0 },
         shadowColor: 'transparent',
       }}
+      tabStyle={{
+        flex: 1,
+        paddingTop: 8,
+        paddingBottom: 16,
+      }}
       indicatorStyle={{
         borderWidth: 2,
         borderColor: COLORS.main,
@@ -39,11 +44,6 @@ const KanaMenuTabBar = (
         return (
           <TabBarItem
             {...tabBarItemProps}
-            style={{
-              paddingTop: 8,
-              paddingBottom: 16,
-              paddingHorizontal: 4,
-            }}
             labelStyle={{
               ...t.title2,
             }}
