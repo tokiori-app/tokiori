@@ -1,16 +1,12 @@
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { SceneMap, TabView } from 'react-native-tab-view';
 import { useBook } from '@provider/BookProvider';
-import React, { lazy, Suspense, useState } from 'react';
-import Loading from '@components/common/Loading';
+import { useState } from 'react';
 import BookMarkTabContent from '@components/page/(word)/TabContents/BookMarkTabContent';
 import MinigameTabContent from '@components/page/(word)/TabContents/MinigameTabContent';
+import WordListTabContent from '@components/page/(word)/TabContents/WordListTabContent';
 import WordHeader from '@components/page/(word)/WordHeader';
 import KanaMenuTabBar from '@components/page/kana/KanaMenuTabBar';
-
-const WordListTabContent = lazy(
-  () => import('@components/page/(word)/TabContents/WordListTabContent'),
-);
 
 const renderScene = SceneMap({
   word: WordListTabContent,
@@ -32,15 +28,13 @@ const WordScreen = () => {
   return (
     <View style={s.container}>
       <WordHeader />
-      <Suspense fallback={<Loading />}>
-        <TabView
-          navigationState={{ index: tabIndex, routes }}
-          renderScene={renderScene}
-          onIndexChange={setTabIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={KanaMenuTabBar}
-        />
-      </Suspense>
+      <TabView
+        navigationState={{ index: tabIndex, routes }}
+        renderScene={renderScene}
+        onIndexChange={setTabIndex}
+        initialLayout={{ width: layout.width }}
+        renderTabBar={KanaMenuTabBar}
+      />
     </View>
   );
 };

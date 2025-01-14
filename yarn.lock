@@ -1322,6 +1322,20 @@
     dotenv-expand "~11.0.6"
     getenv "^1.0.0"
 
+"@expo/fingerprint@^0.10.2":
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/@expo/fingerprint/-/fingerprint-0.10.3.tgz#87c2811fe7773ec7d00cae86ab041d578f9041b5"
+  integrity sha512-h/BnnyloJyMSrzeXonKLE6HfiMpRg3e9m8CAv+eUaAozG9heKMG9ftHW4cfm2StDYj/rWjFc5YK6MSIX6qd+xg==
+  dependencies:
+    "@expo/spawn-async" "^1.7.2"
+    chalk "^4.1.2"
+    debug "^4.3.4"
+    find-up "^5.0.0"
+    minimatch "^3.0.4"
+    p-limit "^3.1.0"
+    resolve-from "^5.0.0"
+    semver "^7.6.0"
+
 "@expo/image-utils@^0.5.0":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@expo/image-utils/-/image-utils-0.5.1.tgz#06fade141facebcd8431355923d30f3839309942"
@@ -2722,17 +2736,17 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@supabase/auth-js@2.67.0":
-  version "2.67.0"
-  resolved "https://registry.yarnpkg.com/@supabase/auth-js/-/auth-js-2.67.0.tgz#2cde1126e889c8f941965eeea2c181f916f04fbe"
-  integrity sha512-zbyxFWJmdkQalnDr4vYNtxh//NLBwjPgggZ0hcoY/Ry8c5p9gZV6v972uz/wRxiRSGyNt9xnxbXKLQkDsqEMkQ==
+"@supabase/auth-js@2.67.3":
+  version "2.67.3"
+  resolved "https://registry.yarnpkg.com/@supabase/auth-js/-/auth-js-2.67.3.tgz#a1f5eb22440b0cdbf87fe2ecae662a8dd8bb2028"
+  integrity sha512-NJDaW8yXs49xMvWVOkSIr8j46jf+tYHV0wHhrwOaLLMZSFO4g6kKAf+MfzQ2RaD06OCUkUHIzctLAxjTgEVpzw==
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
-"@supabase/functions-js@2.4.3":
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/@supabase/functions-js/-/functions-js-2.4.3.tgz#ac1c696d3a1ebe00f60d5cea69b208078678ef8b"
-  integrity sha512-sOLXy+mWRyu4LLv1onYydq+10mNRQ4rzqQxNhbrKLTLTcdcmS9hbWif0bGz/NavmiQfPs4ZcmQJp4WqOXlR4AQ==
+"@supabase/functions-js@2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@supabase/functions-js/-/functions-js-2.4.4.tgz#45fcd94d546bdfa66d01f93a796ca0304ec154b8"
+  integrity sha512-WL2p6r4AXNGwop7iwvul2BvOtuJ1YQy8EbOd0dhG1oN1q8el/BIRSFCFnWAMM/vJJlHWLi4ad22sKbKr9mvjoA==
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
@@ -2743,10 +2757,10 @@
   dependencies:
     whatwg-url "^5.0.0"
 
-"@supabase/postgrest-js@1.16.3":
-  version "1.16.3"
-  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.16.3.tgz#d8e009e63b9152e46715982a6d706f1450c0af0d"
-  integrity sha512-HI6dsbW68AKlOPofUjDTaosiDBCtW4XAm0D18pPwxoW3zKOE2Ru13Z69Wuys9fd6iTpfDViNco5sgrtnP0666A==
+"@supabase/postgrest-js@1.17.10":
+  version "1.17.10"
+  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.17.10.tgz#c3b32c25a34a44fab2c9fc570242d09ae87ca757"
+  integrity sha512-GlcwOjEmPcXfaEU0wHg1MgHU+peR+zZFyaEWjr7a7EOCB1gCtw3nW7ABfnPPH411coXHV90eb/isDgT9HRshLg==
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
@@ -2767,15 +2781,15 @@
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
-"@supabase/supabase-js@^2.47.6":
-  version "2.47.6"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.47.6.tgz#16b390360777f48e4bec9ea209863dfee47214ec"
-  integrity sha512-qObNaqeDOb1+yh8oHdcjGxOVIvNOsOPE+rKr01ODDxWQHtwC2Wsye42BXZDZz7+FJFxEAqNieDqRPrlMRu5VyA==
+"@supabase/supabase-js@^2.47.12":
+  version "2.47.12"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.47.12.tgz#27a0f2fda99ce63eecad8a0c1946b84d680b4637"
+  integrity sha512-My8X5K1KwOBFjQhAqIf7QJaQhP5EILjJwAgjzRNjstlMLJmdVBctwRYD6IGDWKzw+i6/aNGuRd5c9/pI/Y6UFw==
   dependencies:
-    "@supabase/auth-js" "2.67.0"
-    "@supabase/functions-js" "2.4.3"
+    "@supabase/auth-js" "2.67.3"
+    "@supabase/functions-js" "2.4.4"
     "@supabase/node-fetch" "2.6.15"
-    "@supabase/postgrest-js" "1.16.3"
+    "@supabase/postgrest-js" "1.17.10"
     "@supabase/realtime-js" "2.11.2"
     "@supabase/storage-js" "2.7.1"
 
@@ -3320,6 +3334,11 @@ application-config-path@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/application-config-path/-/application-config-path-0.1.1.tgz#8b5ac64ff6afdd9bd70ce69f6f64b6998f5f756e"
   integrity sha512-zy9cHePtMP0YhwG+CfHm0bgwdnga2X3gZexpdCwEj//dpb+TKajtiC8REEUJUSq6Ab4f9cgNy2l8ObXzCXFkEw==
+
+arg@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
+  integrity sha512-ZWc51jO3qegGkVh8Hwpv636EkbesNV5ZNQPCtRa+0qytRYPEs9IYT9qITY9buezqUH5uqyzlWLcufrzU2rffdg==
 
 arg@5.0.2:
   version "5.0.2"
@@ -5034,6 +5053,11 @@ expo-dev-menu@5.0.22:
     expo-dev-menu-interface "1.8.3"
     semver "^7.5.4"
 
+expo-eas-client@~0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/expo-eas-client/-/expo-eas-client-0.12.0.tgz#e8b6f7d33873e6f630f37f7bfc41646ae7b0b2a9"
+  integrity sha512-Jkww9Cwpv0z7DdLYiRX0r4fqBEcI9cKqTn7cHx63S09JaZ2rcwEE4zYHgrXwjahO+tU2VW8zqH+AJl6RhhW4zA==
+
 expo-file-system@~17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-17.0.1.tgz#b9f8af8c1c06ec71d96fd7a0d2567fa9e1c88f15"
@@ -5124,10 +5148,36 @@ expo-status-bar@~1.12.1:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.12.1.tgz#52ce594aab5064a0511d14375364d718ab78aa66"
   integrity sha512-/t3xdbS8KB0prj5KG5w7z+wZPFlPtkgs95BsmrP/E7Q0xHXTcDcQ6Cu2FkFuRM+PKTb17cJDnLkawyS5vDLxMA==
 
+expo-structured-headers@~3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-3.8.0.tgz#11797a4c3a7a6770b21126cecffcda148030e361"
+  integrity sha512-R+gFGn0x5CWl4OVlk2j1bJTJIz4KO8mPoCHpRHmfqMjmrMvrOM0qQSY3V5NHXwp1yT/L2v8aUmFQsBRIdvi1XA==
+
 expo-updates-interface@~0.16.2:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.16.2.tgz#ad1ac2ca8ee5a8cc84052ea3c18a11da64da569b"
   integrity sha512-929XBU70q5ELxkKADj1xL0UIm3HvhYhNAOZv5DSk7rrKvLo7QDdPyl+JVnwZm9LrkNbH4wuE2rLoKu1KMgZ+9A==
+
+expo-updates@~0.25.27:
+  version "0.25.27"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.25.27.tgz#4aff889fea2aa221d8341a902646288f84c48b9e"
+  integrity sha512-1hyYZqBEXcAiEuSRPJ6dINTndGlWi6/bwlyYGjSnyoYfu/vzZQrJ+XA8JUP4EvJ3b0g8a0UOIjlDJ9ke9kMcfg==
+  dependencies:
+    "@expo/code-signing-certificates" "0.0.5"
+    "@expo/config" "~9.0.0-beta.0"
+    "@expo/config-plugins" "~8.0.8"
+    "@expo/fingerprint" "^0.10.2"
+    "@expo/spawn-async" "^1.7.2"
+    arg "4.1.0"
+    chalk "^4.1.2"
+    expo-eas-client "~0.12.0"
+    expo-manifests "~0.14.0"
+    expo-structured-headers "~3.8.0"
+    expo-updates-interface "~0.16.2"
+    fast-glob "^3.3.2"
+    fbemitter "^3.0.0"
+    ignore "^5.3.1"
+    resolve-from "^5.0.0"
 
 expo@~51.0.28:
   version "51.0.32"
@@ -7519,7 +7569,7 @@ p-limit@^2.0.0, p-limit@^2.2.0:
   dependencies:
     p-try "^2.0.0"
 
-p-limit@^3.0.2:
+p-limit@^3.0.2, p-limit@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-3.1.0.tgz#e1daccbe78d0d1388ca18c64fea38e3e57e3706b"
   integrity sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==
@@ -8005,6 +8055,13 @@ react-native-tab-view@^4.0.5:
   integrity sha512-Xn3TpYo4yvKRC/f4+cOcvsXlitdnSaYkacshckrEI3JiDmFKNFIRVNxtZFggm4MwbJafq2RzuzR6xrgKoxgkTw==
   dependencies:
     use-latest-callback "^0.2.1"
+
+react-native-url-polyfill@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-url-polyfill/-/react-native-url-polyfill-2.0.0.tgz#db714520a2985cff1d50ab2e66279b9f91ffd589"
+  integrity sha512-My330Do7/DvKnEvwQc0WdcBnFPploYKp9CYlefDXzIdEaA+PAhDYllkvGeEroEzvc4Kzzj2O4yVdz8v6fjRvhA==
+  dependencies:
+    whatwg-url-without-unicode "8.0.0-3"
 
 react-native@0.74.5:
   version "0.74.5"
