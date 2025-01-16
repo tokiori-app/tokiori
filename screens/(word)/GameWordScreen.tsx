@@ -9,28 +9,25 @@ import CloseSVG from '@assets/icons/close.svg';
 import SoundSVG from '@assets/icons/sound.svg';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
+import useQuitModal from '@hooks/modal/useQuitModal';
 import useRandomWord from '@hooks/page/word/useRandomWord';
-import { useRouter } from 'expo-router';
-import { Suspense, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import readerHandler from 'service/Reader';
 import Loading from '@components/common/Loading';
 import Header from '@components/common/layout/Header';
 
 const GameWordScreen = () => {
-  const router = useRouter();
   const { answer, sounds } = useRandomWord();
+  const [currentPage, setCurrentPage] = useState(1);
   const [clickAnswer, setClickAnswer] = useState<string>('');
   const [feedbackType, setFeedbackType] = useState<
     'empty' | 'success' | 'fail' | undefined
   >();
+  const { openModalHanlder, QuitModal } = useQuitModal();
 
   const wordClickHandler = (word: string) => {
     readerHandler.playSound(word);
     setClickAnswer(word);
-  };
-
-  const quitMinigameHandler = () => {
-    router.back();
   };
 
   const confirmHandler = () => {
@@ -46,59 +43,62 @@ const GameWordScreen = () => {
   };
 
   return (
-    <View style={[s.inset]}>
-      <Header>
-        <Header.Left>
-          <Pressable onPress={quitMinigameHandler}>
-            <CloseSVG />
-          </Pressable>
-        </Header.Left>
-        <Header.Right>
-          <Text style={t.title3}>1/10</Text>
-        </Header.Right>
-      </Header>
+    <>
+      <View style={[s.inset]}>
+        <Header>
+          <Header.Left>
+            <Pressable onPress={openModalHanlder}>
+              <CloseSVG />
+            </Pressable>
+          </Header.Left>
+          <Header.Right>
+            <Text style={t.title3}>{currentPage}/10</Text>
+          </Header.Right>
+        </Header>
 
-      <View style={[s.container, s.inset]}>
-        <Suspense fallback={<Loading />}>
-          <View style={s.gridContainer}>
-            <Text style={t.jp60}>{answer}</Text>
-            <View style={s.grid}>
-              {sounds.map((sound) => (
-                <TouchableOpacity
-                  key={sound}
-                  style={[
-                    s.soundButton,
-                    clickAnswer === sound && s.activeSoundButton,
-                  ]}
-                  onPress={() => wordClickHandler(sound)}
-                >
-                  <SoundSVG />
-                </TouchableOpacity>
-              ))}
+        <View style={[s.container, s.inset]}>
+          <Suspense fallback={<Loading />}>
+            <View style={s.gridContainer}>
+              <Text style={t.jp60}>{answer}</Text>
+              <View style={s.grid}>
+                {sounds.map((sound) => (
+                  <TouchableOpacity
+                    key={sound}
+                    style={[
+                      s.soundButton,
+                      clickAnswer === sound && s.activeSoundButton,
+                    ]}
+                    onPress={() => wordClickHandler(sound)}
+                  >
+                    <SoundSVG />
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
-          </View>
 
-          <View style={s.confirmBox}>
-            <FeedBackBox feedbackType={feedbackType} />
-            <TouchableOpacity
-              style={[
-                s.confirmButton,
-                feedbackType !== 'empty' ? s.confirmNext : s.confirmBase,
-              ]}
-              onPress={confirmHandler}
-            >
-              <Text
-                style={
-                  feedbackType !== 'empty' ? s.confirmNextText : s.confirmText
-                }
+            <View style={s.confirmBox}>
+              <FeedBackBox feedbackType={feedbackType} />
+              <TouchableOpacity
+                style={[
+                  s.confirmButton,
+                  feedbackType !== 'empty' ? s.confirmNext : s.confirmBase,
+                ]}
+                onPress={confirmHandler}
               >
-                {feedbackType !== 'empty' ? '다음' : '확인'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </Suspense>
+                <Text
+                  style={
+                    feedbackType !== 'empty' ? s.confirmNextText : s.confirmText
+                  }
+                >
+                  {feedbackType !== 'empty' ? '다음' : '확인'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Suspense>
+        </View>
       </View>
-    </View>
+      <QuitModal />
+    </>
   );
 };
 
