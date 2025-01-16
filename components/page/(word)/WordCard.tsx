@@ -5,6 +5,7 @@ import t from '@constant/typography';
 import { useBook } from 'provider/BookProvider';
 import { useWord } from 'provider/WordProvider';
 import { useEffect, useState } from 'react';
+import readerHandler from 'service/Reader';
 import BookMarkBtn from '@components/common/BookMarkBtn';
 import EyesBtn from '@components/common/EyesBtn';
 
@@ -22,7 +23,10 @@ const WordCard = ({ item }: WordCardProps) => {
     setActiveWord(wordStorage);
   }, [wordStorage]);
   return (
-    <TouchableOpacity style={s.container}>
+    <TouchableOpacity
+      style={s.container}
+      onPress={() => readerHandler.playSound(word)}
+    >
       <EyesBtn
         isActive={activeWord}
         onClick={() => setActiveWord(!activeWord)}
