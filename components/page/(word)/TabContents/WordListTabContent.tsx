@@ -41,11 +41,11 @@ export default WordListTabContent;
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
   },
   flatContant: {
     gap: 20,
     paddingTop: 32,
     paddingBottom: 42,
+    paddingHorizontal: 16,
   },
 });
