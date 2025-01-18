@@ -23,7 +23,7 @@ const GameWordScreen = () => {
   const [feedbackType, setFeedbackType] = useState<
     'success' | 'fail' | 'empty'
   >();
-  const { answer, choices, pager, randomWord } = useRandomWord();
+  const { quiz, pager, quitGameHandler } = useRandomWord();
   const { openModalHanlder, QuitModal } = useQuitModal();
 
   const wordClickHandler = (word: string) => {
@@ -37,18 +37,22 @@ const GameWordScreen = () => {
       return;
     }
 
-    if (clickAnswer === answer) {
+    if (clickAnswer === quiz.answer) {
       setFeedbackType('success');
       return;
     }
 
-    if (clickAnswer !== answer) {
+    if (clickAnswer !== quiz.answer) {
       setFeedbackType('fail');
     }
   };
 
   const changePageHandler = () => {
-    randomWord();
+    if (pager.currentPage === 10) {
+      return quitGameHandler();
+    }
+
+    quiz.randomWord();
     pager.setCurrentPage((prev) => prev + 1);
     requestAnimationFrame(() =>
       pager.pagerRef.current?.setPage(pager.currentPage),
@@ -59,7 +63,7 @@ const GameWordScreen = () => {
   useEffect(() => {
     setClickAnswer('');
     setFeedbackType(undefined);
-  }, [answer]);
+  }, [quiz.answer]);
 
   return (
     <>
@@ -79,7 +83,7 @@ const GameWordScreen = () => {
           <PagerView
             ref={pager.pagerRef}
             style={s.inset}
-            initialPage={1}
+            initialPage={0}
             scrollEnabled={false}
           >
             {Array(10)
@@ -87,10 +91,10 @@ const GameWordScreen = () => {
               .map((_, index) => (
                 <View key={index} style={[s.container, s.inset]}>
                   <View style={s.gridContainer}>
-                    <Text style={t.jp60}>{answer}</Text>
+                    <Text style={t.jp60}>{quiz.answer}</Text>
                     <View style={s.grid}>
-                      {choices.map((choice) => {
-                        const isCorrect = choice === answer;
+                      {quiz.choices.map((choice) => {
+                        const isCorrect = choice === quiz.answer;
                         const isClicked = choice === clickAnswer;
                         const isChecked =
                           feedbackType === 'success' || feedbackType === 'fail';

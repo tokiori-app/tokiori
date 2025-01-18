@@ -1,8 +1,11 @@
 import PagerView from 'react-native-pager-view';
+import ROUTES from '@constant/routes';
+import { useRouter } from 'expo-router';
 import { supabase } from 'lib/supabase';
 import { useEffect, useRef, useState } from 'react';
 
 const useRandomWord = () => {
+  const router = useRouter();
   const pagerRef = useRef<PagerView>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [prevAnswer, setPrevAnswer] = useState<string[]>([]);
@@ -14,9 +17,6 @@ const useRandomWord = () => {
       excluded_words: prevAnswer,
     });
     if (data) {
-      console.log(
-        `prevAnswer : ${prevAnswer}, answer : ${data[0].answer}, choices : ${data[0].choices}`,
-      );
       const shuffledData = [...data[0].choices];
 
       // 가져온 데이터를 셔플 (Fisher-Yates 알고리즘)
@@ -32,14 +32,17 @@ const useRandomWord = () => {
     }
   };
 
+  const quitGameHandler = () => {
+    router.push(`${ROUTES.QUITGAME}/${prevAnswer}`);
+  };
+
   useEffect(() => {
     randomWord();
   }, []);
 
   return {
-    answer,
-    choices,
-    randomWord,
+    quiz: { answer, choices, randomWord },
+    quitGameHandler,
     pager: { pagerRef, currentPage, setCurrentPage },
   };
 };

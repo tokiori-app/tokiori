@@ -13,6 +13,7 @@ const ROUTES = {
       WRONG: '/word/wrong',
     },
   },
+  QUITGAME: '/quitgame',
 } as const;
 
 export default ROUTES;
