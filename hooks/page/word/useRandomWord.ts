@@ -1,15 +1,21 @@
+import PagerView from 'react-native-pager-view';
 import { supabase } from 'lib/supabase';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const useRandomWord = () => {
+  const pagerRef = useRef<PagerView>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [prevAnswer, setPrevAnswer] = useState<string[]>([]);
   const [answer, setAnswer] = useState<string | null>(null);
   const [sounds, setSounds] = useState<string[]>([]);
 
   useEffect(() => {
     const randomWord = async () => {
-      const { data } = await supabase.rpc('get_random_words');
+      const { data } = await supabase.rpc('get_random_words', {
+        excluded_words: prevAnswer,
+      });
       if (data) {
-        const shuffledData = [...data];
+        const shuffledData = [...data[0].choices];
 
         // 가져온 데이터를 셔플 (Fisher-Yates 알고리즘)
         for (let i = shuffledData.length - 1; i > 0; i--) {
@@ -21,14 +27,14 @@ const useRandomWord = () => {
           ]; // 배열을 무작위로 셔플
         }
 
-        const randomIndex = Math.floor(Math.random() * shuffledData.length);
-        setAnswer(shuffledData[randomIndex]);
+        setAnswer(data[0].answer);
         setSounds(shuffledData);
+        setPrevAnswer((prev) => [...prev, data[0].answer]);
       }
     };
     randomWord();
-  }, []);
+  }, [currentPage]);
 
-  return { answer, sounds };
+  return { answer, sounds, pager: { pagerRef, currentPage, setCurrentPage } };
 };
 export default useRandomWord;

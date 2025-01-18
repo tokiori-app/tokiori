@@ -5,24 +5,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import PagerView from 'react-native-pager-view';
 import CloseSVG from '@assets/icons/close.svg';
 import SoundSVG from '@assets/icons/sound.svg';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
 import useQuitModal from '@hooks/modal/useQuitModal';
 import useRandomWord from '@hooks/page/word/useRandomWord';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import readerHandler from 'service/Reader';
+import FeedBackBox from '@components/common/FeedBackBox';
 import Loading from '@components/common/Loading';
 import Header from '@components/common/layout/Header';
 
 const GameWordScreen = () => {
-  const { answer, sounds } = useRandomWord();
-  const [currentPage, setCurrentPage] = useState(1);
   const [clickAnswer, setClickAnswer] = useState<string>('');
   const [feedbackType, setFeedbackType] = useState<
-    'empty' | 'success' | 'fail' | undefined
+    'success' | 'fail' | 'empty'
   >();
+  const { answer, sounds, pager } = useRandomWord();
   const { openModalHanlder, QuitModal } = useQuitModal();
 
   const wordClickHandler = (word: string) => {
@@ -32,15 +33,30 @@ const GameWordScreen = () => {
 
   const confirmHandler = () => {
     if (clickAnswer === '') {
-      return setFeedbackType('empty');
+      setFeedbackType('empty');
+      return;
     }
+
     if (clickAnswer === answer) {
-      return setFeedbackType('success');
+      setFeedbackType('success');
+      return;
     }
+
     if (clickAnswer !== answer) {
-      return setFeedbackType('fail');
+      setFeedbackType('fail');
     }
   };
+
+  const changePageHandler = () => {
+    pager.setCurrentPage((prev) => prev + 1);
+    pager.pagerRef.current?.setPageWithoutAnimation(pager.currentPage);
+  };
+
+  // 초기화
+  useEffect(() => {
+    setClickAnswer('');
+    setFeedbackType(undefined);
+  }, [answer]);
 
   return (
     <>
@@ -52,50 +68,88 @@ const GameWordScreen = () => {
             </Pressable>
           </Header.Left>
           <Header.Right>
-            <Text style={t.title3}>{currentPage}/10</Text>
+            <Text style={t.title3}>{pager.currentPage}/10</Text>
           </Header.Right>
         </Header>
 
-        <View style={[s.container, s.inset]}>
-          <Suspense fallback={<Loading />}>
-            <View style={s.gridContainer}>
-              <Text style={t.jp60}>{answer}</Text>
-              <View style={s.grid}>
-                {sounds.map((sound) => (
-                  <TouchableOpacity
-                    key={sound}
-                    style={[
-                      s.soundButton,
-                      clickAnswer === sound && s.activeSoundButton,
-                    ]}
-                    onPress={() => wordClickHandler(sound)}
-                  >
-                    <SoundSVG />
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-
-            <View style={s.confirmBox}>
-              <FeedBackBox feedbackType={feedbackType} />
-              <TouchableOpacity
-                style={[
-                  s.confirmButton,
-                  feedbackType !== 'empty' ? s.confirmNext : s.confirmBase,
-                ]}
-                onPress={confirmHandler}
-              >
-                <Text
-                  style={
-                    feedbackType !== 'empty' ? s.confirmNextText : s.confirmText
-                  }
-                >
-                  {feedbackType !== 'empty' ? '다음' : '확인'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Suspense>
-        </View>
+        <Suspense fallback={<Loading />}>
+          <PagerView
+            ref={pager.pagerRef}
+            style={s.inset}
+            initialPage={1}
+            scrollEnabled={false}
+          >
+            {Array(10)
+              .fill(0)
+              .map((_, index) => (
+                <View key={index} style={[s.container, s.inset]}>
+                  <View style={s.gridContainer}>
+                    <Text style={t.jp60}>{answer}</Text>
+                    <View style={s.grid}>
+                      {sounds.map((sound) => {
+                        const isCorrect = sound === answer;
+                        const isClicked = sound === clickAnswer;
+                        const isChecked =
+                          feedbackType === 'success' || feedbackType === 'fail';
+                        return (
+                          <TouchableOpacity
+                            key={sound}
+                            style={[
+                              s.soundButton,
+                              clickAnswer === sound && s.activeSoundButton,
+                              isChecked &&
+                                isClicked &&
+                                !isCorrect &&
+                                s.failSoundButton,
+                              isChecked && isCorrect && s.answerSoundButton,
+                              isChecked &&
+                                !isClicked &&
+                                !isCorrect &&
+                                s.activeSoundButton,
+                            ]}
+                            onPress={() => wordClickHandler(sound)}
+                            disabled={isChecked}
+                          >
+                            <SoundSVG />
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                  </View>
+                  <View style={s.confirmBox}>
+                    {feedbackType && (
+                      <FeedBackBox feedbackType={feedbackType} />
+                    )}
+                    <TouchableOpacity
+                      style={[
+                        s.confirmButton,
+                        feedbackType && feedbackType !== 'empty'
+                          ? s.confirmNext
+                          : s.confirmBase,
+                      ]}
+                      onPress={() =>
+                        feedbackType && feedbackType !== 'empty'
+                          ? changePageHandler()
+                          : confirmHandler()
+                      }
+                    >
+                      <Text
+                        style={
+                          feedbackType && feedbackType !== 'empty'
+                            ? s.confirmNextText
+                            : s.confirmText
+                        }
+                      >
+                        {feedbackType && feedbackType !== 'empty'
+                          ? '다음'
+                          : '확인'}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+          </PagerView>
+        </Suspense>
       </View>
       <QuitModal />
     </>
@@ -103,34 +157,6 @@ const GameWordScreen = () => {
 };
 
 export default GameWordScreen;
-
-interface FeedBackBoxProps {
-  feedbackType?: 'empty' | 'success' | 'fail';
-}
-
-const FeedBackBox = ({ feedbackType }: FeedBackBoxProps) => {
-  if (feedbackType === 'empty' || feedbackType === 'fail') {
-    return (
-      <View style={[s.feedbackContainer, s.feebackFail]}>
-        <Text style={s.feebackFailText}>
-          {feedbackType === 'empty'
-            ? '아무것도 클릭하지 않았습니다'
-            : '앗 아쉽지만 오답입니다!'}
-        </Text>
-      </View>
-    );
-  }
-
-  if (feedbackType === 'success') {
-    return (
-      <View style={[s.feedbackContainer, s.feedbackSucess]}>
-        <Text style={s.feedbackSucessText}>잘했어요! 정답입니다.</Text>
-      </View>
-    );
-  }
-
-  return null;
-};
 
 const s = StyleSheet.create({
   inset: {
@@ -165,6 +191,16 @@ const s = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.main,
   },
+  failSoundButton: {
+    backgroundColor: 'rgba(231,76,60,0.4)',
+    borderWidth: 1,
+    borderColor: COLORS.main,
+  },
+  answerSoundButton: {
+    backgroundColor: 'rgba(46,204,113,0.4)',
+    borderWidth: 1,
+    borderColor: COLORS.main,
+  },
   confirmBox: {
     gap: 20,
   },
@@ -186,26 +222,5 @@ const s = StyleSheet.create({
   },
   confirmNextText: {
     color: COLORS.black,
-  },
-  feedbackContainer: {
-    borderWidth: 1,
-    borderRadius: 4,
-    height: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  feebackFail: {
-    borderColor: COLORS.incorrect,
-    backgroundColor: 'rgba(231,76,60,0.2)',
-  },
-  feedbackSucess: {
-    borderColor: '#2ECC71',
-    backgroundColor: '#DEFAEA',
-  },
-  feebackFailText: {
-    color: COLORS.incorrect,
-  },
-  feedbackSucessText: {
-    color: '#1B7A43',
   },
 });

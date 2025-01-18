@@ -88,7 +88,10 @@ export type Database = {
         Args: {
           excluded_words?: string[];
         };
-        Returns: string[];
+        Returns: {
+          answer: string;
+          choices: string[];
+        }[];
       };
     };
     Enums: {
