@@ -23,7 +23,7 @@ const GameWordScreen = () => {
   const [feedbackType, setFeedbackType] = useState<
     'success' | 'fail' | 'empty'
   >();
-  const { answer, sounds, pager } = useRandomWord();
+  const { answer, choices, pager, randomWord } = useRandomWord();
   const { openModalHanlder, QuitModal } = useQuitModal();
 
   const wordClickHandler = (word: string) => {
@@ -48,8 +48,11 @@ const GameWordScreen = () => {
   };
 
   const changePageHandler = () => {
+    randomWord();
     pager.setCurrentPage((prev) => prev + 1);
-    pager.pagerRef.current?.setPageWithoutAnimation(pager.currentPage);
+    requestAnimationFrame(() =>
+      pager.pagerRef.current?.setPage(pager.currentPage),
+    );
   };
 
   // 초기화
@@ -86,17 +89,17 @@ const GameWordScreen = () => {
                   <View style={s.gridContainer}>
                     <Text style={t.jp60}>{answer}</Text>
                     <View style={s.grid}>
-                      {sounds.map((sound) => {
-                        const isCorrect = sound === answer;
-                        const isClicked = sound === clickAnswer;
+                      {choices.map((choice) => {
+                        const isCorrect = choice === answer;
+                        const isClicked = choice === clickAnswer;
                         const isChecked =
                           feedbackType === 'success' || feedbackType === 'fail';
                         return (
                           <TouchableOpacity
-                            key={sound}
+                            key={choice}
                             style={[
                               s.soundButton,
-                              clickAnswer === sound && s.activeSoundButton,
+                              clickAnswer === choice && s.activeSoundButton,
                               isChecked &&
                                 isClicked &&
                                 !isCorrect &&
@@ -107,7 +110,7 @@ const GameWordScreen = () => {
                                 !isCorrect &&
                                 s.activeSoundButton,
                             ]}
-                            onPress={() => wordClickHandler(sound)}
+                            onPress={() => wordClickHandler(choice)}
                             disabled={isChecked}
                           >
                             <SoundSVG />
