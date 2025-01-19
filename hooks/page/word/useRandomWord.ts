@@ -66,9 +66,12 @@ const useRandomWord = () => {
   };
 
   const nextQuizHandler = () => {
+    if (currentPage === 10) {
+      return requestAnimationFrame(() => pagerRef.current?.setPage(1));
+    }
+
     randomWord();
     setCurrentPage((prev) => prev + 1);
-    requestAnimationFrame(() => pagerRef.current?.setPage(currentPage));
   };
 
   useEffect(() => {
