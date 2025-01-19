@@ -11,6 +11,7 @@ const useRandomWord = () => {
   const [prevAnswer, setPrevAnswer] = useState<string[]>([]);
   const [answer, setAnswer] = useState<string | null>(null);
   const [choices, setChoices] = useState<string[]>([]);
+  const [wrongWords, setWrongWords] = useState<string[]>([]);
 
   const randomWord = async () => {
     const { data } = await supabase.rpc('get_random_words', {
