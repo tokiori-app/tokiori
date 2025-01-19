@@ -42,9 +42,7 @@ const GameWordScreen = () => {
     setFeedbackType(undefined);
   }, [quiz.answer]);
 
-  if (isPending) {
-    return <Loading />;
-  }
+  if (isPending) return <Loading />;
 
   return (
     <>
@@ -64,7 +62,11 @@ const GameWordScreen = () => {
           confirmHandler={confirmHandler}
           clickAnswer={clickAnswer}
         />
-        <EndGameScreen key={1} openModalHanlder={openModalHanlder} />
+        <EndGameScreen
+          key={1}
+          wrongWords={quiz.wrongWords}
+          openModalHanlder={openModalHanlder}
+        />
       </PagerView>
       <QuitModal />
     </>

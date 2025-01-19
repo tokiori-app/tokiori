@@ -6,19 +6,47 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import { Database } from '$types/database';
 import CloseSVG from '@assets/icons/close.svg';
 import HappyCharacter from '@assets/image/character/happy.svg';
 import COLORS from '@constant/color';
 import t from '@constant/typography';
+import { useState } from 'react';
 import Header from '@components/common/layout/Header';
 import EndButton from './EndButton';
 import EndCard from './EndCard';
 
+type WordType = Database['public']['Tables']['words']['Row'];
+
 interface EndGameScreenProps {
+  wrongWords: WordType[];
   openModalHanlder: () => void;
 }
 
-const EndGameScreen = ({ openModalHanlder }: EndGameScreenProps) => {
+const EndGameScreen = ({
+  wrongWords,
+  openModalHanlder,
+}: EndGameScreenProps) => {
+  const [selectWrong, setSelectWrong] = useState<WordType[]>([]);
+
+  const allSelectHandler = () => {
+    if (selectWrong.length > 0) {
+      return setSelectWrong([]);
+    }
+    setSelectWrong(wrongWords);
+  };
+
+  const selectHandler = (wrongWord: WordType) => {
+    setSelectWrong((prev) => {
+      const isExisting = prev.some((item) => item.id === wrongWord.id);
+      if (isExisting) {
+        return prev.filter((item) => item.id !== wrongWord.id);
+      } else {
+        return [...prev, wrongWord];
+      }
+    });
+  };
+
   return (
     <View style={s.inset}>
       <View style={s.headerBox}>
@@ -42,7 +70,7 @@ const EndGameScreen = ({ openModalHanlder }: EndGameScreenProps) => {
       </View>
       <View style={s.inset}>
         <View style={s.allSelectBox}>
-          <TouchableOpacity style={s.allSelect}>
+          <TouchableOpacity onPress={allSelectHandler} style={s.allSelect}>
             <Text style={t.heading2}>전체 선택</Text>
           </TouchableOpacity>
         </View>
@@ -51,17 +79,30 @@ const EndGameScreen = ({ openModalHanlder }: EndGameScreenProps) => {
           style={s.scrollContainer}
           contentContainerStyle={s.scrollContent}
         >
-          <EndCard>
-            <EndCard.Word hiragana="asd" word="asd" />
-            <EndCard.Kor korean="asd" />
-          </EndCard>
+          {wrongWords.map((wrongWord) => (
+            <EndCard
+              onPress={() => selectHandler(wrongWord)}
+              isActive={selectWrong.some((item) => item.id === wrongWord.id)}
+            >
+              <EndCard.Word
+                hiragana={wrongWord.hiragana}
+                word={wrongWord.word}
+              />
+              <EndCard.Kor korean={wrongWord.korean} />
+            </EndCard>
+          ))}
         </ScrollView>
       </View>
       <View style={s.btnList}>
-        <EndButton style={{ width: 96, backgroundColor: COLORS.secondary }}>
+        <EndButton
+          onPress={openModalHanlder}
+          style={{ width: 96, backgroundColor: COLORS.secondary }}
+        >
           종료
         </EndButton>
-        <EndButton style={{ flex: 1 }}>선택한 단어 저장 (2)</EndButton>
+        <EndButton style={{ flex: 1 }}>
+          선택한 단어 저장 ({selectWrong.length})
+        </EndButton>
       </View>
     </View>
   );

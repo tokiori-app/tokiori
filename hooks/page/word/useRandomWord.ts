@@ -80,7 +80,7 @@ const useRandomWord = () => {
 
   return {
     isPending,
-    quiz: { answer, choices, nextQuizHandler, saveWrongHandler },
+    quiz: { answer, choices, wrongWords, nextQuizHandler, saveWrongHandler },
     pager: { pagerRef, currentPage, setCurrentPage },
   };
 };

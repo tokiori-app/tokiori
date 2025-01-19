@@ -9,15 +9,15 @@ import COLORS from '@constant/color';
 import t from '@constant/typography';
 import { ReactNode } from 'react';
 
-const EndButton = ({
-  style,
-  children,
-}: {
+interface EndButtonProps {
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
-}) => {
+  onPress?: () => void;
+}
+
+const EndButton = ({ style, children, onPress }: EndButtonProps) => {
   return (
-    <TouchableOpacity style={[s.container, style]}>
+    <TouchableOpacity onPress={onPress} style={[s.container, style]}>
       <Text style={[t.title2, { color: COLORS.gray1 }]}>{children}</Text>
     </TouchableOpacity>
   );
