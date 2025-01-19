@@ -1,17 +1,20 @@
 import { supabase } from 'lib/supabase';
 
-/**
- * 공지사항을 가져옵니다.
- * @returns {NoticeType[]} 공지사항 배열 반환
- */
 const getNotice = async () => {
-  const { data, error } = await supabase.from('notices').select();
+  try {
+    const { data, error } = await supabase.from('notices').select();
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error: any) {
+    console.error('Error fetching :', error.message);
   }
-
-  return data;
 };
 
 export default getNotice;
