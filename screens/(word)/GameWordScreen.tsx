@@ -12,7 +12,7 @@ import COLORS from '@constant/color';
 import t from '@constant/typography';
 import useQuitModal from '@hooks/modal/useQuitModal';
 import useRandomWord from '@hooks/page/word/useRandomWord';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import readerHandler from 'service/Reader';
 import FeedBackBox from '@components/common/FeedBackBox';
 import Loading from '@components/common/Loading';
@@ -23,7 +23,7 @@ const GameWordScreen = () => {
   const [feedbackType, setFeedbackType] = useState<
     'success' | 'fail' | 'empty'
   >();
-  const { quiz, pager, quitGameHandler } = useRandomWord();
+  const { isPending, quiz, pager } = useRandomWord();
   const { openModalHanlder, QuitModal } = useQuitModal();
 
   const wordClickHandler = (word: string) => {
@@ -34,29 +34,23 @@ const GameWordScreen = () => {
   const confirmHandler = () => {
     if (clickAnswer === '') {
       setFeedbackType('empty');
-      return;
     }
 
-    if (clickAnswer === quiz.answer) {
+    if (clickAnswer === quiz.answer?.word) {
       setFeedbackType('success');
-      return;
     }
 
-    if (clickAnswer !== quiz.answer) {
+    if (clickAnswer !== quiz.answer?.word) {
       setFeedbackType('fail');
+      quiz.saveWrongHandler();
     }
   };
 
   const changePageHandler = () => {
     if (pager.currentPage === 10) {
-      return quitGameHandler();
+      return;
     }
-
-    quiz.randomWord();
-    pager.setCurrentPage((prev) => prev + 1);
-    requestAnimationFrame(() =>
-      pager.pagerRef.current?.setPage(pager.currentPage),
-    );
+    quiz.nextQuizHandler();
   };
 
   // 초기화
@@ -65,99 +59,92 @@ const GameWordScreen = () => {
     setFeedbackType(undefined);
   }, [quiz.answer]);
 
+  if (isPending) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <View style={[s.inset]}>
-        <Header>
-          <Header.Left>
-            <Pressable onPress={openModalHanlder}>
-              <CloseSVG />
-            </Pressable>
-          </Header.Left>
-          <Header.Right>
-            <Text style={t.title3}>{pager.currentPage}/10</Text>
-          </Header.Right>
-        </Header>
-
-        <Suspense fallback={<Loading />}>
-          <PagerView
-            ref={pager.pagerRef}
-            style={s.inset}
-            initialPage={0}
-            scrollEnabled={false}
-          >
-            {Array(10)
-              .fill(0)
-              .map((_, index) => (
-                <View key={index} style={[s.container, s.inset]}>
-                  <View style={s.gridContainer}>
-                    <Text style={t.jp60}>{quiz.answer}</Text>
-                    <View style={s.grid}>
-                      {quiz.choices.map((choice) => {
-                        const isCorrect = choice === quiz.answer;
-                        const isClicked = choice === clickAnswer;
-                        const isChecked =
-                          feedbackType === 'success' || feedbackType === 'fail';
-                        return (
-                          <TouchableOpacity
-                            key={choice}
-                            style={[
-                              s.soundButton,
-                              clickAnswer === choice && s.activeSoundButton,
-                              isChecked &&
-                                isClicked &&
-                                !isCorrect &&
-                                s.failSoundButton,
-                              isChecked && isCorrect && s.answerSoundButton,
-                              isChecked &&
-                                !isClicked &&
-                                !isCorrect &&
-                                s.activeSoundButton,
-                            ]}
-                            onPress={() => wordClickHandler(choice)}
-                            disabled={isChecked}
-                          >
-                            <SoundSVG />
-                          </TouchableOpacity>
-                        );
-                      })}
-                    </View>
-                  </View>
-                  <View style={s.confirmBox}>
-                    {feedbackType && (
-                      <FeedBackBox feedbackType={feedbackType} />
-                    )}
+      <PagerView
+        ref={pager.pagerRef}
+        style={s.inset}
+        initialPage={0}
+        scrollEnabled={false}
+      >
+        <View style={s.inset}>
+          <Header>
+            <Header.Left>
+              <Pressable onPress={openModalHanlder}>
+                <CloseSVG />
+              </Pressable>
+            </Header.Left>
+            <Header.Right>
+              <Text style={t.title3}>{pager.currentPage}/10</Text>
+            </Header.Right>
+          </Header>
+          <View style={[s.container, s.inset]}>
+            <View style={s.gridContainer}>
+              <Text style={t.jp60}>{quiz.answer?.word}</Text>
+              <View style={s.grid}>
+                {quiz.choices.map((choice) => {
+                  const isCorrect = choice.word === quiz.answer?.word;
+                  const isClicked = choice.word === clickAnswer;
+                  const isChecked =
+                    feedbackType === 'success' || feedbackType === 'fail';
+                  return (
                     <TouchableOpacity
+                      key={choice.word}
                       style={[
-                        s.confirmButton,
-                        feedbackType && feedbackType !== 'empty'
-                          ? s.confirmNext
-                          : s.confirmBase,
+                        s.soundButton,
+                        clickAnswer === choice.word && s.activeSoundButton,
+                        isChecked &&
+                          isClicked &&
+                          !isCorrect &&
+                          s.failSoundButton,
+                        isChecked && isCorrect && s.answerSoundButton,
+                        isChecked &&
+                          !isClicked &&
+                          !isCorrect &&
+                          s.activeSoundButton,
                       ]}
-                      onPress={() =>
-                        feedbackType && feedbackType !== 'empty'
-                          ? changePageHandler()
-                          : confirmHandler()
-                      }
+                      onPress={() => wordClickHandler(choice.word)}
+                      disabled={isChecked}
                     >
-                      <Text
-                        style={
-                          feedbackType && feedbackType !== 'empty'
-                            ? s.confirmNextText
-                            : s.confirmText
-                        }
-                      >
-                        {feedbackType && feedbackType !== 'empty'
-                          ? '다음'
-                          : '확인'}
-                      </Text>
+                      <SoundSVG />
                     </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
-          </PagerView>
-        </Suspense>
-      </View>
+                  );
+                })}
+              </View>
+            </View>
+            <View style={s.confirmBox}>
+              {feedbackType && <FeedBackBox feedbackType={feedbackType} />}
+              <TouchableOpacity
+                style={[
+                  s.confirmButton,
+                  feedbackType && feedbackType !== 'empty'
+                    ? s.confirmNext
+                    : s.confirmBase,
+                ]}
+                onPress={() =>
+                  feedbackType && feedbackType !== 'empty'
+                    ? changePageHandler()
+                    : confirmHandler()
+                }
+              >
+                <Text
+                  style={
+                    feedbackType && feedbackType !== 'empty'
+                      ? s.confirmNextText
+                      : s.confirmText
+                  }
+                >
+                  {feedbackType && feedbackType !== 'empty' ? '다음' : '확인'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </PagerView>
       <QuitModal />
     </>
   );

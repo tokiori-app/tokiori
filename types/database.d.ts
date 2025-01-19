@@ -89,8 +89,8 @@ export type Database = {
           excluded_words?: string[];
         };
         Returns: {
-          answer: string;
-          choices: string[];
+          answer_id: number;
+          choices: number[];
         }[];
       };
     };
